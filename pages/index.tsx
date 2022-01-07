@@ -15,7 +15,7 @@ export default function Home() {
             Next.js!
           </a>
         </h1>
-
+        <div className="py-20 text-2xl text-red-600">Coucou</div>
         <p className="mt-3 text-2xl">
           Get started by editing{' '}
           <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
