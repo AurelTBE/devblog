@@ -44,7 +44,6 @@ interface Props {
 const PostDetail = ({post}: Props) => {
     const getContentFragment = (index: number, text: string, obj:any, type?:string) => {
         let modifiedText:any = text;
-        console.log(obj)
         if (obj) {
           if (obj.bold) {
             modifiedText = (<b key={index}>{text}</b>);
@@ -67,7 +66,7 @@ const PostDetail = ({post}: Props) => {
             case 'heading-four':
                 return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item:string, i:number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
             case 'code-block':
-                return <code key={index} className="text-md font-semibold mb-4 block bg-gray-100 p-8 shadow-inner rounded-lg">{modifiedText.map((item:string, i:number) => <React.Fragment key={i}>{item}</React.Fragment>)}</code>;
+                return <code key={index} className="text-md overflow-auto font-semibold mb-4 block bg-gray-100 p-8 shadow-inner rounded-lg">{modifiedText.map((item:string, i:number) => <React.Fragment key={i}>{item}</React.Fragment>)}</code>;
             case 'image':
                 return (
                     <img
