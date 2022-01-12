@@ -48,7 +48,7 @@ const PostWidget = ({ categories, slug }: Props) => {
                         <p className="text-gray-500 text-xs">
                             {moment(post.createdAt).format('ll')}
                         </p>
-                        <Link href={`/posts/${post.slug}`} key={post.title+Math.random()}>
+                        <Link href={`/post/${post.slug}`} key={post.title+Math.random()}>
                             <span className="text-md cursor-pointer">{post.title}</span>
                         </Link>
                     </div>
