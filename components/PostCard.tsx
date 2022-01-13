@@ -3,34 +3,34 @@ import moment from 'moment'
 import Link from 'next/link'
 import { BsCalendar4Event } from 'react-icons/bs'
 
-export interface Post {
-    author:        Author;
+export interface IPost {
+    author:        IAuthor;
     createdAt:     Date;
     slug:          string;
     title:         string;
     excerpt:       string;
-    featuredImage: FeaturedImage;
-    categories:    Category[];
+    featuredImage: IFeaturedImage;
+    categories:    ICategory[];
 }
 
-export interface Author {
+export interface IAuthor {
     bio:   string;
     name:  string;
     id:    string;
-    photo: FeaturedImage;
+    photo: IFeaturedImage;
 }
 
-export interface FeaturedImage {
+export interface IFeaturedImage {
     url: string;
 }
 
-export interface Category {
+export interface ICategory {
     name: string;
     slug: string;
 }
 
 interface Props {
-    post: Post
+    post: IPost
 }
 
 const PostCard = ({post}: Props) => {

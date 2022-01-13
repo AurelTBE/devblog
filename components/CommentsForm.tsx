@@ -10,10 +10,10 @@ const CommentsForm = ({ slug }: Props) => {
     const [error, setError] = useState(false)
     const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-    const commentEl = useRef()
-    const nameEl:any = useRef()
-    const emailEl:any = useRef()
-    const storeDataEl = useRef()
+    const commentEl = useRef<HTMLFormElement>()
+    let nameEl:any = useRef()
+    let emailEl:any = useRef()
+    const storeDataEl = useRef<HTMLFormElement>()
 
     useEffect(() => {
         nameEl.current.value = window.localStorage.getItem("name")
@@ -22,11 +22,11 @@ const CommentsForm = ({ slug }: Props) => {
 
     const handleCommentSubmission = () => {
         setError(false)
-        const { value: comment }: any = commentEl.current
-        const { value: name }: any = nameEl.current
-        const { value: email }: any = emailEl.current
-        const { checked: storeData }: any = storeDataEl.current
-
+        const { value: comment }: HTMLFormElement = (commentEl && commentEl.current && commentEl.current.value) && commentEl.current
+        const { value: name }: HTMLFormElement = (nameEl && nameEl.current && nameEl.current.value) && nameEl.current
+        const { value: email }: HTMLFormElement = (emailEl && emailEl.current && emailEl.current.value) && emailEl.current
+        const { checked: storeData }: HTMLFormElement = (storeDataEl && storeDataEl.current && storeDataEl.current.value) && storeDataEl.current
+        console.log(comment)
         if(!comment || !name || !email) {
             setError(true)
             return

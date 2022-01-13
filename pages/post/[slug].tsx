@@ -1,6 +1,7 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { getPosts, getPostDetails } from '../../services';
-import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm } from '../../components'
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from '../../components'
 
 export interface IPost {
     author:        IAuthor;
@@ -38,6 +39,12 @@ export interface IRaw {
 }
 
 const Post = ({post}: {post:IPost}) => {
+    const router = useRouter()
+
+    if(router.isFallback) {
+        return <Loader />
+    }
+
     let catlist:string[] = []
 
     post?.categories.map((cat:ICategory) => {
@@ -82,6 +89,6 @@ export async function getStaticPaths() {
 
     return {
         paths: posts.map(({ node: { slug } }:{node:{slug:string}}) => ({ params: { slug }})),
-        fallback: false
+        fallback: true
     }
 }

@@ -5,7 +5,7 @@ import { getComments } from '../services';
 
 interface IComment {
     name: string
-    createdAt: Date
+    createdAt?: Date
     comment: string
 }
 
@@ -30,8 +30,8 @@ const Comments = ({slug}: Props) => {
                         {' '}
                         {comments.length > 1 ? "commentaires" : "commentaire"}
                     </h3>
-                    {comments.map((comment:any) => (
-                        <div key={comment.createdAt} className="border-b border-gray-100 mb-4 pb-4">
+                    {comments.map((comment:IComment) => (
+                        <div key={comment?.createdAt?.toString()} className="border-b border-gray-100 mb-4 pb-4">
                             <p className="mb-4">
                                 <span className="font-semibold">{comment.name}</span>
                                 {' '}

@@ -18,7 +18,7 @@ interface IFeaturedImage {
 
 interface Props {
     categories: any,
-    slug: any
+    slug: string
 }
 
 const PostWidget = ({ categories, slug }: Props) => {
