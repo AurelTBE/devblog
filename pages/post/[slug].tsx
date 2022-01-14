@@ -2,41 +2,8 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { getPosts, getPostDetails } from '../../services';
 import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from '../../components'
+import { IPost, ICategory } from '../../types/post'
 
-export interface IPost {
-    author:        IAuthor;
-    createdAt:     Date;
-    slug:          string;
-    title:         string;
-    excerpt:       string;
-    featuredImage: IFeaturedImage;
-    categories:    ICategory[];
-    content:       IContent;
-}
-
-export interface IAuthor {
-    bio:   string;
-    name:  string;
-    id:    string;
-    photo: IFeaturedImage;
-}
-
-export interface IFeaturedImage {
-    url: string;
-}
-
-export interface ICategory {
-    name: string;
-    slug: string;
-}
-
-export interface IContent {
-    raw: IRaw;
-}
-
-export interface IRaw {
-    children: any;
-}
 
 const Post = ({post}: {post:IPost}) => {
     const router = useRouter()
@@ -52,8 +19,8 @@ const Post = ({post}: {post:IPost}) => {
     })
 
     return (
-        <div className="container mx-auto px-10 mb-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="container px-10 mx-auto mb-8">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
                 <div className="col-span-1 lg:col-span-8">
                     <PostDetail post={post} />
                     <Author author={post.author} />

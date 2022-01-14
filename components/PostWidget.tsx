@@ -35,21 +35,21 @@ const PostWidget = ({ categories, slug }: Props) => {
     }, [slug])
     
     return (
-        <div className='bg-white shadow-lg rounded-lg p-8 mb-8'>
-            <h3 className='text-xl mb-8 font-semibold border-b pb-4'>
+        <div className='p-8 mb-8 bg-white rounded-lg shadow-lg'>
+            <h3 className='pb-4 mb-8 text-xl font-semibold border-b'>
                 {slug ? "Related Posts" : "Recent Posts" }
             </h3>
             {relatedPosts && relatedPosts.map((post: IPost) => (
                 <div key={post.title} className="flex items-center w-full mb-4">
-                    <div className='w-16 flex-none'>
+                    <div className='flex-none w-16'>
                         <img src={post.featuredImage.url} alt={post.title} width="60px" height="60px" className='align-middle rounded-full'/>
                     </div>
                     <div className="flex-grow ml-4">
-                        <p className="text-gray-500 text-xs">
+                        <p className="text-xs text-gray-500">
                             {moment(post.createdAt).format('ll')}
                         </p>
                         <Link href={`/post/${post.slug}`} key={post.title+Math.random()}>
-                            <span className="text-md cursor-pointer">{post.title}</span>
+                            <span className="cursor-pointer text-md">{post.title}</span>
                         </Link>
                     </div>
                 </div>

@@ -3,51 +3,20 @@ import { useRouter } from 'next/router';
 
 import { getCategories, getCategoryPost } from '../../services';
 import { PostCard, Categories, Loader } from '../../components';
+import { IPosts } from '../../types/posts'
 
-export interface IPost {
-    cursor: string;
-    node:   INode;
-}
-
-export interface INode {
-    author:        IAuthor;
-    createdAt:     Date;
-    slug:          string;
-    title:         string;
-    excerpt:       string;
-    featuredImage: IFeaturedImage;
-    categories:    ICategory[];
-}
-
-export interface IAuthor {
-    bio:   string;
-    name:  string;
-    id:    string;
-    photo: IFeaturedImage;
-}
-
-export interface IFeaturedImage {
-    url: string;
-}
-
-export interface ICategory {
-    name: string;
-    slug: string;
-}
-
-const CategoryPost = ({ posts }: {posts: IPost[]}) => {
+const CategoryPost = ({ posts }: {posts: IPosts[]}) => {
   const router = useRouter();
 
-  console.log(posts)
   if (router.isFallback) {
     return <Loader />;
   }
 
   return (
-    <div className="container mx-auto px-10 mb-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div className="container px-10 mx-auto mb-8">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="col-span-1 lg:col-span-8">
-          {posts.map((post:IPost, index:number) => (
+          {posts.map((post:IPosts, index:number) => (
             <PostCard key={index} post={post.node} />
           ))}
         </div>

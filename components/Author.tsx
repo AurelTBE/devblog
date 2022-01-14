@@ -7,18 +7,18 @@ interface IAuthor {
     id: string;
     photo: IPhoto;
 }
+
 interface IPhoto {
     url: string;
 }
   
-
 interface Props {
     author: IAuthor
 }
 
 const Author = ({ author }: Props) => {
     return (
-        <div className='text-center mt-20 mb-8 p-12 relative rounded-lg bg-black bg-opacity-20'>
+        <div className='relative p-12 mt-20 mb-8 text-center bg-black rounded-lg bg-opacity-20'>
             <div className='absolute left-0 right-0 -top-14'>
                 <Image 
                     src={author.photo.url}
@@ -29,10 +29,10 @@ const Author = ({ author }: Props) => {
                     className='align-middle rounded-full'
                 />
             </div>
-            <h3 className='text-white my-4 text-xl font-bold'>
+            <h3 className='my-4 text-xl font-bold text-white'>
                 {author.name}
             </h3>
-            <p className='text-white text-lg'>
+            <p className='text-lg text-white'>
                 {author.bio}
             </p>
         </div>

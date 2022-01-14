@@ -4,14 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export interface IPost {
-    author:        Author;
+    author:        IAuthor;
     featuredImage: IFeaturedImage;
     title:         string;
     slug:          string;
     createdAt:     Date;
 }
 
-export interface Author {
+export interface IAuthor {
     name:  string;
     photo: IFeaturedImage;
 }
@@ -27,24 +27,24 @@ interface Props {
 const FeaturedPostCard = ({post}: Props) => {
     return (
         <div className="relative h-72">
-            <div className="absolute rounded-lg bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72" style={{ backgroundImage: `url('${post.featuredImage.url}')` }} />
-            <div className="absolute rounded-lg bg-center bg-gradient-to-b opacity-50 from-gray-400 via-gray-700 to-black w-full h-72" />
-            <div className="flex flex-col rounded-lg p-4 items-center justify-center absolute w-full h-full">
-            <p className="text-white mb-4 text-shadow font-semibold text-xs">{moment(post.createdAt).format('ll')}</p>
-            <p className="text-white mb-4 text-shadow font-semibold text-2xl text-center">{post.title}</p>
-            <div className="flex items-center absolute bottom-5 w-full justify-center">
+            <div className="absolute inline-block w-full bg-center bg-no-repeat bg-cover rounded-lg shadow-md h-72" style={{ backgroundImage: `url('${post.featuredImage.url}')` }} />
+            <div className="absolute w-full bg-center rounded-lg opacity-50 bg-gradient-to-b from-gray-400 via-gray-700 to-black h-72" />
+            <div className="absolute flex flex-col items-center justify-center w-full h-full p-4 rounded-lg">
+            <p className="mb-4 text-xs font-semibold text-white text-shadow">{moment(post.createdAt).format('ll')}</p>
+            <p className="mb-4 text-2xl font-semibold text-center text-white text-shadow">{post.title}</p>
+            <div className="absolute flex items-center justify-center w-full bottom-5">
                 <Image
                     unoptimized
                     alt={post.author.name}
                     height="30px"
                     width="30px"
-                    className="align-middle drop-shadow-lg rounded-full"
+                    className="align-middle rounded-full drop-shadow-lg"
                     src={post.author.photo.url}
                 />
-                <p className="inline align-middle text-white text-shadow ml-2 font-medium">{post.author.name}</p>
+                <p className="inline ml-2 font-medium text-white align-middle text-shadow">{post.author.name}</p>
             </div>
             </div>
-            <Link href={`/post/${post.slug}`}><span className="cursor-pointer absolute w-full h-full" /></Link>
+            <Link href={`/post/${post.slug}`}><span className="absolute w-full h-full cursor-pointer" /></Link>
         </div>
     )
 }

@@ -8,25 +8,28 @@ interface Props {
 
 const CommentsForm = ({ slug }: Props) => {
     const [error, setError] = useState(false)
-    const [localStorage, setLocalStorage] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const commentEl = useRef<HTMLFormElement>()
-    let nameEl:any = useRef()
-    let emailEl:any = useRef()
+    let nameEl = useRef<HTMLFormElement>()
+    let emailEl = useRef<HTMLFormElement>()
     const storeDataEl = useRef<HTMLFormElement>()
 
     useEffect(() => {
-        nameEl.current.value = window.localStorage.getItem("name")
-        emailEl.current.value = window.localStorage.getItem("email")
+        if(nameEl && nameEl.current) {
+            nameEl.current.value = window.localStorage.getItem("name")
+        }
+        if(emailEl && emailEl.current) {
+            emailEl.current.value = window.localStorage.getItem("email")
+        }
     }, [])
 
     const handleCommentSubmission = () => {
         setError(false)
-        const { value: comment }: HTMLFormElement = (commentEl && commentEl.current && commentEl.current.value) && commentEl.current
-        const { value: name }: HTMLFormElement = (nameEl && nameEl.current && nameEl.current.value) && nameEl.current
-        const { value: email }: HTMLFormElement = (emailEl && emailEl.current && emailEl.current.value) && emailEl.current
-        const { checked: storeData }: HTMLFormElement = (storeDataEl && storeDataEl.current && storeDataEl.current.value) && storeDataEl.current
-        console.log(comment)
+        const { value: comment } = (commentEl && commentEl.current && commentEl.current.value) && commentEl.current
+        const { value: name } = (nameEl && nameEl.current && nameEl.current.value) && nameEl.current
+        const { value: email } = (emailEl && emailEl.current && emailEl.current.value) && emailEl.current
+        const { checked: storeData } = (storeDataEl && storeDataEl.current && storeDataEl.current.value) && storeDataEl.current
+
         if(!comment || !name || !email) {
             setError(true)
             return
@@ -53,28 +56,28 @@ const CommentsForm = ({ slug }: Props) => {
     }
 
     return (
-        <div className='bg-white shadow-lg rounded-lg p-8 pb-12 mb-8'>
-            <h3 className='text-xl mb-8 font-semibold border-b pb-4'>Laissez un commentaire</h3>
+        <div className='p-8 pb-12 mb-8 bg-white rounded-lg shadow-lg'>
+            <h3 className='pb-4 mb-8 text-xl font-semibold border-b'>Laissez un commentaire</h3>
             <div className='grid grid-cols-1 gap-4 mb-4'>
                 <textarea 
                     ref={commentEl as any} 
-                    className='p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700'
+                    className='w-full p-4 text-gray-700 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-gray-200'
                     placeholder="Commentaire"
                     name="commentaire"
                 />
             </div>
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
+            <div className='grid grid-cols-1 gap-4 mb-4 lg:grid-cols-2'>
                 <input 
                     type="text" 
                     ref={nameEl as any}
-                    className='py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700'
+                    className='w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-gray-200'
                     placeholder="Nom"
                     name="nom"
                 />
                 <input 
                     type="text" 
                     ref={emailEl as any}
-                    className='py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700'
+                    className='w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-gray-200'
                     placeholder="Email"
                     name="email"
                 />
@@ -82,7 +85,7 @@ const CommentsForm = ({ slug }: Props) => {
             <div className='grid grid-cols-1 gap-4 mb-4'>
                 <div>
                     <input ref={storeDataEl as any} type="checkbox" id="storeData" name="storeData" value="true" />
-                    <label htmlFor="storeData" className="text-gray-500 cursor-pointer ml-2">Enregistrer mes information pour les prochains commentaires.</label>
+                    <label htmlFor="storeData" className="ml-2 text-gray-500 cursor-pointer">Enregistrer mes information pour les prochains commentaires.</label>
                 </div>
             </div>
             {error && <p className='text-xs text-red-500'>Tous les champs sont requis.</p>}
@@ -90,11 +93,11 @@ const CommentsForm = ({ slug }: Props) => {
                 <button 
                     type='button'
                     onClick={handleCommentSubmission} 
-                    className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
+                    className="inline-block px-8 py-3 text-lg text-white transition duration-500 bg-pink-600 rounded-full cursor-pointer ease hover:bg-indigo-900"
                 >
                     Soumettre le commentaire
                 </button>
-                {showSuccessMessage && <span className="text-xl float-right font-semibold mt-3 text-green-500">Commentaire soumis pour modération.</span>}
+                {showSuccessMessage && <span className="float-right mt-3 text-xl font-semibold text-green-500">Commentaire soumis pour modération.</span>}
             </div>
         </div>
     )
